@@ -12669,7 +12669,7 @@ if (HealthPC) {
                                     if (Player->bEnsure)
                                         ws = L"BOT";
                                     else if (Player->PlayerName.IsValid())
-                                        ws = std::wstring(Player->PlayerName.Data);
+                                        ws = std::wstring(Player->PlayerName.c_str());
                                     
                                     tslFont->LegacyFontSize = max(10, 15 - (int)(Distance / 90));
                                     float txtWidth, txtHeight;
@@ -13041,9 +13041,9 @@ if(Config.ESPMenu.血条1){
             
 
             std::wstring s;
-            s += CurrentWeaponReplicated->GetWeaponName().ToWString();
+            s += CurrentWeaponReplicated->GetWeaponName().c_str();
         robotoFont->LegacyFontSize = 10.0f;
-         DrawOutlinedText(HUD, FString(s), FVector2D(RootSc.X, (HeadSc.Y - 41)), FLinearColor(1.0, 0.4980392156862745, 0.0, 1.0), COLOR_BLACK, true);
+         DrawOutlinedText(HUD, FString(s.c_str()), FVector2D(RootSc.X, (HeadSc.Y - 41)), FLinearColor(1.0, 0.4980392156862745, 0.0, 1.0), COLOR_BLACK, true);
            }
       }
          }
@@ -13059,7 +13059,7 @@ if(Config.ESPMenu.血条1){
 
                         std::wstring Text;
                          
-                         Text = std::to_wstring(Player->TeamID) + L"  " + Player->PlayerName.ToWString();
+                         Text = std::to_wstring(Player->TeamID) + L"  " + Player->PlayerName.c_str();
                          
                   //Text = Player->PlayerName.ToWString();
                                    
@@ -13068,11 +13068,11 @@ if(Config.ESPMenu.血条1){
                         {
                             if (Player->bEnsure)
                             {
-                            DrawOutlinedText(HUD, FString(knockedstr), FVector2D(RootSc.X - 1, (RootSc.Y + 3)), COLOR_PLAYER, COLOR_BLACK, true);
+                            DrawOutlinedText(HUD, FString(knockedstr.c_str()), FVector2D(RootSc.X - 1, (RootSc.Y + 3)), COLOR_PLAYER, COLOR_BLACK, true);
                             }
                             else
                             {
-                            DrawOutlinedText(HUD, FString(knockedstr), FVector2D(RootSc.X - 1, (RootSc.Y + 3)), FLinearColor(255 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1.0f), COLOR_BLACK, true);
+                            DrawOutlinedText(HUD, FString(knockedstr.c_str()), FVector2D(RootSc.X - 1, (RootSc.Y + 3)), FLinearColor(255 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1.0f), COLOR_BLACK, true);
                             }
                         }
                         else
@@ -13080,12 +13080,12 @@ if(Config.ESPMenu.血条1){
                             if (!Player->bEnsure)
 
                             {
-DrawOutlinedText(HUD, FString(Text), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), COLOR_WHITE, COLOR_BLACK, true);
+DrawOutlinedText(HUD, FString(Text.c_str()), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), COLOR_WHITE, COLOR_BLACK, true);
                             }
                             else
                             {
 
-DrawOutlinedText(HUD, FString(Text), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), COLOR_WHITE, COLOR_BLACK, true);
+DrawOutlinedText(HUD, FString(Text.c_str()), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), COLOR_WHITE, COLOR_BLACK, true);
                             }
                         }
                     }
@@ -13093,7 +13093,7 @@ DrawOutlinedText(HUD, FString(Text), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), 
                                         std::wstring distance;
                             distance = std::to_wstring((int) Distance) + L" M";
                             robotoFont->LegacyFontSize = 11.f;
-                            DrawOutlinedText(HUD, FString(distance), FVector2D(RootSc.X - 1, (RootSc.Y + 17)), COLOR_WHITE, COLOR_BLACK, true);
+                            DrawOutlinedText(HUD, FString(distance.c_str()), FVector2D(RootSc.X - 1, (RootSc.Y + 17)), COLOR_WHITE, COLOR_BLACK, true);
 
                         }
                                     }
@@ -13106,7 +13106,7 @@ DrawOutlinedText(HUD, FString(Text), FVector2D(RootSc.X - 13, (HeadSc.Y - 21)), 
     std::wstring numi = L"" + std::to_wstring(totalEnemies) +
                         L"   " + std::to_wstring(totalBots) + L" ";
     tslFont->LegacyFontSize = 55;
-    DrawTextcan(HUD, FString(numi), {(float) screenWidth / 2, 99999},
+    DrawTextcan(HUD, FString(numi.c_str()), {(float) screenWidth / 2, 99999},
                 COLOR_BLUE, COLOR_BLACK);
 }
                         }
@@ -13162,63 +13162,63 @@ const char *pBroadCast = ("Function ShadowTrackerExtra.STExtraPlayerController.B
 if (g_PlayerController->PlayerKey == Params->FatalDamageParameter.CauserKey && !g_PlayerController->STExtraBaseCharacter->CurrentVehicle && g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated){
     Params->FatalDamageParameter.CauserClothAvatarID = new_Skin.XSuits;
         //M416
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "M416")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "M416")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.M416_1;
       }
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "AKM")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "AKM")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.AKM;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "SCAR-L")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "SCAR-L")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.Scar;
       }
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "M16A4")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "M16A4")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.M16A4;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "GROZA")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "GROZA")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.Groza;
       }
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "AUG")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "AUG")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.AUG;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "M762")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "M762")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.M762;
       }
 
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "Kar98K")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "Kar98K")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.K98;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "M24")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "M24")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.M24;
       }
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "AWM")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "AWM")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.AWM;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "DP-28")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "DP-28")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.DP28;
      }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "UMP")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "UMP")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.UMP;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "Mk14")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "Mk14")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.MK14;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "Mk14 (Refined)")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "Mk14 (Refined)")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.MK145;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "MK146")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "MK146")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.MK146;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "AUG")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "AUG")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.AUG;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "MG3")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "MG3")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.MG3;
       }
-     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "MG3 (Refined)")){
+     if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "MG3 (Refined)")){
                      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.mg31;
       }
     
-                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString(), "M249")){
+                    if(strstr(g_LocalPlayer->WeaponManagerComponent->CurrentWeaponReplicated->GetWeaponName().ToString().c_str(), "M249")){
      Params->FatalDamageParameter.CauserWeaponAvatarID = new_Skin.M249;
      }
      
