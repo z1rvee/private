@@ -1,4 +1,5 @@
-export THEOS=/var/mobile/theos
+THEOS ?= $(HOME)/theos
+export THEOS
 
 ARCHS = arm64
 #Add arm64e if it needed
@@ -14,7 +15,7 @@ ESP_FRAMEWORKS = IOKit  UIKit Foundation Security QuartzCore CoreGraphics \
                  CoreText  AVFoundation Accelerate GLKit SystemConfiguration GameController
 
 
-ESP_LDFLAGS += ESP/API/libAPIClient.a ESP/JRMemory.framework/JRMemory
+ESP_LDFLAGS += ESP/API/libAPIClient.a ESP/JRMemory.framework/JRMemory -Wl,-rpath,@executable_path/Frameworks
 
 ESP_CCFLAGS = -w -std=gnu++14 -fno-rtti -fno-exceptions -DNDEBUG -Wno-module-import-in-extern-c
 
