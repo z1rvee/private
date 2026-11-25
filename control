@@ -1,0 +1,9 @@
+Package: com.xxv
+Name:  HAX
+Depends: firmware (>= 5.0), mobilesubstrate
+Version: 3.7.1
+Architecture: iphoneos-arm
+Description: The Best Brutal And Safest Hack
+Maintainer: 666
+Author: @xxv_00
+Section: Tweaks
