@@ -53,7 +53,8 @@ jobs:
           for dylib in output/*.dylib; do
             [ -e "$dylib" ] || continue
             install_name_tool -delete_rpath /Library/Frameworks "$dylib" 2>/dev/null || true
-            install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @rpath/CydiaSubstrate.framework/CydiaSubstrate "$dylib" 2>/dev/null || true
+            install_name_tool -change @rpath/CydiaSubstrate.framework/CydiaSubstrate /usr/lib/libobjc.A.dylib "$dylib" 2>/dev/null || true
+            install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate /usr/lib/libobjc.A.dylib "$dylib" 2>/dev/null || true
             ldid -S "$dylib" || true
           done
 
