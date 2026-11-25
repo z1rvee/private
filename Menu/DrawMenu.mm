@@ -8860,16 +8860,16 @@ void RenderESP(AHUD *HUD, int ScreenWidth, int ScreenHeight) {
     USceneComponent *SceneComponent = 0;
     UAntiCheatUtils *AntiCheatUtils = 0;
     UGMCheatManager *GMCheatManager = 0;
-    UVACTask_AccelerationControl *VACTask_AccelerationControl = 0;
+    // UVACTask_AccelerationControl *VACTask_AccelerationControl = 0;
     UWeaponAntiCheatComp *WeaponCheat = 0;
-    UVACTask_FlyingVehicle *VACTask_FlyingVehicle = 0;
-    UVACTask_FlyingVehicleVelocity *VACTask_FlyingVehicleVelocity = 0;
-    UVACTask_FlyingVehicleVelocityChange *VACTask_FlyingVehicleVelocityChange = 0;
-    UVACTask_FlyingVehicleZ *VACTask_FlyingVehicleZ = 0;
-    UVACTask_SuperSpeed *VACTask_SuperSpeed = 0;
-    UVACTask_SuperSpeedAllDir *VACTask_SuperSpeedAllDir = 0;
+    // UVACTask_FlyingVehicle *VACTask_FlyingVehicle = 0;
+    // UVACTask_FlyingVehicleVelocity *VACTask_FlyingVehicleVelocity = 0;
+    // UVACTask_FlyingVehicleVelocityChange *VACTask_FlyingVehicleVelocityChange = 0;
+    // UVACTask_FlyingVehicleZ *VACTask_FlyingVehicleZ = 0;
+    // UVACTask_SuperSpeed *VACTask_SuperSpeed = 0;
+    // UVACTask_SuperSpeedAllDir *VACTask_SuperSpeedAllDir = 0;
     UActorComponent *ActorComponent = 0;
-    UVACTask_ClientAbsSpeed *VACTask_ClientAbsSpeed = 0;
+    // UVACTask_ClientAbsSpeed *VACTask_ClientAbsSpeed = 0;
     FMoveCheatAntiStrategy *MoveCheatAntiStrategy = 0;
     UAssetUserData *AssetUserData = 0;
     USTBuildSystemComponent *STBuildSystemComponent = 0;
@@ -8889,6 +8889,7 @@ void RenderESP(AHUD *HUD, int ScreenWidth, int ScreenHeight) {
         ViewPos = GetBoneLocationByName(localPlayer, "Head");
         ViewPos.Z += 15.f;
     }
+
         UCanvas *Canvas = HUD->Canvas;
         if (Canvas) {
 
@@ -8904,7 +8905,7 @@ void RenderESP(AHUD *HUD, int ScreenWidth, int ScreenHeight) {
                 return;
             tslFont->LegacyFontSize = 30;
 std::wstring name = L"  ";
-            DrawTextcan(HUD, FString(name), {(float) screenWidth/2, 100}, COLOR_RED, COLOR_BLACK);
+            DrawTextcan(HUD, FString(name.c_str()), {(float) screenWidth/2, 100}, COLOR_RED, COLOR_BLACK);
             UGameplayStatics *gGameplayStatics = (UGameplayStatics *) UGameplayStatics::StaticClass();
 auto Actors = getActors();
 
@@ -8919,14 +8920,14 @@ for (int i = 0; i < Actors.size(); i++)
                     if (isObjectInvalid(Actor))
                         continue;
 std::wstring name = L"";
-            DrawTextcan(HUD, FString(name), {(float) screenWidth/2, 180}, COLOR_WHITE, COLOR_BLACK);
+            DrawTextcan(HUD, FString(name.c_str()), {(float) screenWidth/2, 180}, COLOR_WHITE, COLOR_BLACK);
      std::string classname = Actor->GetName();
-               if (classname.find("AirAttackBomb_C") != std::string::npos || classname.find("AirAttackBomb_Livik_C") != std::string::npos) {
+               if (classname.find("AirAttackBomb_C") != std::string::npos || classname.find("AirAttackBomb_Livik_C") != std::string::npos) {
                 FVector2D LootPos;
        FVector PosV = Actor->K2_GetActorLocation();
        float Distance = Actor->GetDistanceTo(localPlayer) / 100.f;
        std::wstring tmp = L"!! AirAttack Nearby !!";
-      DrawText(HUD, FString(tmp), {(float) screenWidth / 2, 150},
+      DrawText(HUD, FString(tmp.c_str()), {(float) screenWidth / 2, 150},
                                          COLOR_RED, true);
                                     if (gGameplayStatics->ProjectWorldToScreen(
                                             localPlayerController,
@@ -12561,7 +12562,7 @@ if (Player->bEnsure)
                                                                                                     CpYaT.Pitch += Yaptr.Pitch /  AimSpeed;// Aim X Speed Make Float : Xs
                                                                                                     CpYaT.Yaw += Yaptr.Yaw /  AimSpeed; // Aim Y Speed Make Float : Ys
                                                                                                     CpYaT.Roll = 0.f;
-                                                                                                    g_PlayerController->SetControlRotation(CpYaT,"");
+                                                                                                    g_PlayerController->SetControlRotation(CpYaT, FString(L""));
                                                                                     
                                                                                 }
                                                                             }
@@ -12583,18 +12584,18 @@ if (Player->bEnsure)
                                                     static USTExtraGameInstance *Instance = nullptr;
 
                                                     if (!Instance)
-                                                        Instance = UObject::FindObject<USTExtraGameInstance>("STExtraGameInstance Transient.UAEGameEngine_1.STExtraGameInstance_1");
+                                                        Instance = UObject::FindObject<USTExtraGameInstance>("STExtraGameInstance Transient.UAEGameEngine_1.STExtraGameInstance_1");
 
                                                     if (Instance != nullptr)
                                                     {
-                                                        auto& UserSettings = Instance->UserDetailSetting;
-                                                        UserSettings.PUBGDeviceFPSDef = 120;
-                                                        UserSettings.PUBGDeviceFPSLow = 120;
-                                                        UserSettings.PUBGDeviceFPSMid = 120;
-                                                        UserSettings.PUBGDeviceFPSHigh = 120;
-                                                        UserSettings.PUBGDeviceFPSHDR = 120;
-                                                        UserSettings.PUBGDeviceFPSUltralHigh = 120;
-                                                        UserSettings.DeviceMaxQualityLevel = 3;
+                                                        auto& UserSettings = Instance->UserDetailSetting;
+                                                        UserSettings.PUBGDeviceFPSDef = 120;
+                                                        UserSettings.PUBGDeviceFPSLow = 120;
+                                                        UserSettings.PUBGDeviceFPSMid = 120;
+                                                        UserSettings.PUBGDeviceFPSHigh = 120;
+                                                        UserSettings.PUBGDeviceFPSHDR = 120;
+                                                        UserSettings.PUBGDeviceFPSUltralHigh = 120;
+                                                        UserSettings.DeviceMaxQualityLevel = 3;
                                                    }
                                                     }
 if (DistancePC) {
@@ -12668,13 +12669,13 @@ if (HealthPC) {
                                     if (Player->bEnsure)
                                         ws = L"BOT";
                                     else if (Player->PlayerName.IsValid())
-                                        ws = Player->PlayerName.ToWString();
+                                        ws = std::wstring(Player->PlayerName.Data);
                                     
                                     tslFont->LegacyFontSize = max(10, 15 - (int)(Distance / 90));
                                     float txtWidth, txtHeight;
                                     
                                     HUD->GetTextSize(Player->PlayerName, tslFont, 1.f, &txtWidth, &txtHeight);
-                                    DrawOutlinedText(HUD, ws, FVector2D(HeadSc.X  , HeadSc.Y - 30 +( txtHeight * 0.5f)), COLOR_WHITE, COLOR_BLACK, true);
+                                    DrawOutlinedText(HUD, FString(ws.c_str()), FVector2D(HeadSc.X  , HeadSc.Y - 30 +( txtHeight * 0.5f)), COLOR_WHITE, COLOR_BLACK, true);
                                     
                                     
                                     
@@ -12691,7 +12692,7 @@ if (HealthPC) {
                                         float txtWidth, txtHeight;
                                         
                                         HUD->GetTextSize(Player->PlayerName, tslFont, 1.f, &txtWidth, &txtHeight);
-                                        DrawOutlinedText(HUD, teamid, FVector2D(HeadSc.X  , HeadSc.Y - 50 +( txtHeight * 0.5f)), COLOR_YELLOW, COLOR_BLACK, true);
+                                        DrawOutlinedText(HUD, FString(teamid.c_str()), FVector2D(HeadSc.X  , HeadSc.Y - 50 +( txtHeight * 0.5f)), COLOR_YELLOW, COLOR_BLACK, true);
                                         
                                         
                                     }
@@ -12702,7 +12703,7 @@ if (HealthPC) {
                                     std::wstring distance;
                                     distance = std::to_wstring((int) Distance) + L"M";
                                     tslFont->LegacyFontSize = 12.f;
-                                    DrawOutlinedTextstyle(HUD, FString(distance), FVector2D(RootSc.X - 1, (RootSc.Y + 18)), COLOR_WHITE, COLOR_BLACK, true);
+                                    DrawOutlinedTextstyle(HUD, FString(distance.c_str()), FVector2D(RootSc.X - 1, (RootSc.Y + 18)), COLOR_WHITE, COLOR_BLACK, true);
                                     
                                 }
 
@@ -12822,6 +12823,7 @@ if(Config.ESPMenu.血条1){
                                 float MaxHP = Player->HealthMax;
                                 auto WeaponManagerComponent = Player->WeaponManagerComponent;
                                 std::wstring wep;
+
                                 
                                 
                                 FLinearColor ColorHP = {
