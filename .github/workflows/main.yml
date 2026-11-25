@@ -1,0 +1,65 @@
+name: Build ESP Dylib
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git "$HOME/theos"
+          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+
+      - name: Install ldid
+        run: |
+          brew install ldid
+
+      - name: Build ESP dylib
+        run: |
+          mkdir -p output
+          export THEOS="$HOME/theos"
+          mkdir -p "$THEOS/sdks"
+
+          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path 2>/dev/null || true)
+          if [ -z "$SDK_PATH" ]; then
+            SDK_PATH=$(find /Applications -maxdepth 6 -path "*iPhoneOS.platform/Developer/SDKs/iPhoneOS*.sdk" 2>/dev/null | sort -V | tail -n 1)
+          fi
+
+          if [ -n "$SDK_PATH" ] && [ -d "$SDK_PATH" ]; then
+            SDK_NAME=$(basename "$SDK_PATH")
+            ln -sfn "$SDK_PATH" "$THEOS/sdks/$SDK_NAME"
+            SDK_VER=$(echo "$SDK_NAME" | sed -E 's/^iPhoneOS([0-9]+\.[0-9]+)\.sdk$/\1/')
+            make clean
+            make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless "TARGET=iphone:clang:${SDK_VER}:15.0"
+          else
+            ls -la "$THEOS/sdks" || true
+            exit 1
+          fi
+
+          find .theos/obj -name "*.dylib" -exec cp -f {} output/ \;
+
+          for dylib in output/*.dylib; do
+            [ -e "$dylib" ] || continue
+            install_name_tool -delete_rpath /Library/Frameworks "$dylib" 2>/dev/null || true
+            install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @rpath/CydiaSubstrate.framework/CydiaSubstrate "$dylib" 2>/dev/null || true
+            ldid -S "$dylib" || true
+          done
+
+          ls -la output/
+
+      - name: Upload ESP dylib artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp-dylib-output
+          path: output/*.dylib
