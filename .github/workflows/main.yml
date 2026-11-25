@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -p output
           export THEOS="$HOME/theos"
+          export THEOS_MAKE_PATH="$HOME/theos/makefiles"
           mkdir -p "$THEOS/sdks"
 
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path 2>/dev/null || true)
@@ -40,8 +41,8 @@ jobs:
             SDK_NAME=$(basename "$SDK_PATH")
             ln -sfn "$SDK_PATH" "$THEOS/sdks/$SDK_NAME"
             SDK_VER=$(echo "$SDK_NAME" | sed -E 's/^iPhoneOS([0-9]+\.[0-9]+)\.sdk$/\1/')
-            make clean
-            make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless "TARGET=iphone:clang:${SDK_VER}:15.0"
+            make clean THEOS="$HOME/theos" THEOS_MAKE_PATH="$HOME/theos/makefiles"
+            make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless THEOS="$HOME/theos" THEOS_MAKE_PATH="$HOME/theos/makefiles" "TARGET=iphone:clang:${SDK_VER}:15.0"
           else
             ls -la "$THEOS/sdks" || true
             exit 1
