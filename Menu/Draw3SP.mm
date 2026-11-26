@@ -474,7 +474,7 @@ void DrawBox3D(ImDrawList *draw, Box3D box3d, ImColor col, float thickness) {
                     (self.moduleControl->playerSwitch.Groza && materialData.name == "Groza") ||
                     (self.moduleControl->playerSwitch.AUG && materialData.name == "AUG") ||
                     (self.moduleControl->playerSwitch.AKM && materialData.name == "AKM") ||
-                    (self.moduleControl->playerSwitch.DP28 && materialData.name == "DP-28") ||
+                    // (self.moduleControl->playerSwitch.DP28 && materialData.name == "DP-28") ||
                     (self.moduleControl->playerSwitch.M249 && materialData.name == "M249") ||
                     (self.moduleControl->playerSwitch.MG3 && materialData.name == "MG3")) {
                     std::string rStr = "[" + materialData.name + ":" + std::to_string(materialData.distance) + "M]";
